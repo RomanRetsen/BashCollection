@@ -23,4 +23,4 @@ sort $final_file > $final_file_sorted
 sed -n 's/^.* /sudo apt install /p' $final_file_sorted > $final_file_sorted_install_script
 chmod +x $final_file_sorted_install_script
 sed -i '1 i #!/bin/bash\n' $final_file_sorted_install_script
-
+#Just blank comment at the end of the file
