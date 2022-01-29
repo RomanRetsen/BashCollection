@@ -1,0 +1,23 @@
+file test.test contains these four fines:
+################################################
+HEAD header information bla bla
+    --  Ubuntu86-64-5.5-ionic           running
+    --  Ubuntu86-64-5.5-ionic-clone     running
+TAIL info line ... bla bla
+################################################
+Task is to extract names of machine instances only
+
+1. option 1
+head -n -1 test.test | tail -n +2 | tr -s " " | cut -c2- | cut -d " " -f2
+
+2. option 2
+cat test.test | sed -nE 's/.*-- ([.a-zA-Z0-9-]+).*$/\1/gp'
+
+3. option 3
+cat test.test | grep -oP '.*-- *[a-zA-z0-9.-]+' | grep -oP '[a-zA-Z0-9.-]+$'
+
+4. option 4
+head -n -1 test.test | tail -n +2 | tr -s " " | cut -c2- | awk -F " " '{print $2}'
+
+5. option 5
+cat test.test | tr -s " " | cut -c2- | awk -F " " '$1 ~ /^.*--/ {print $2}'
